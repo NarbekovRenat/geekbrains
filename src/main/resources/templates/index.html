@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Продуктовая корзина</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container" th:switch="${products}">
+            <h3 th:case="null">В корзине пусто</h3>
+            <div th:case="*">
+                <h2>Корзина</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Название</th>
+                            <th scope="col">Цена</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.cost}"></td>
+                        <td>
+                            <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                                <a class="btn btn-info" role="button" th:href="@{/show/{id}(id=${product.id})}">Инфо</a>
+                                <a class="btn btn-danger" role="button" th:href="@{/delete/{id}(id=${product.id})}">Удалить</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <a class="btn btn-primary" role="button" th:href="@{/addproduct}">Добавить продукт</a>
+                    </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button type="submit" class="btn btn-light" th:href="@{/show(id='value1')}">@</button>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Поиск по ID продукта" aria-label="Поиск по ID продукта" aria-describedby="btnProductFind" name="id" id="id">
+                        </div>
+                </div>
+            </p>
+    </div>
+</body>
+</html>
