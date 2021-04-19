@@ -25,12 +25,24 @@
                     <tr th:each="product : ${products}">
                         <td th:text="${product.id}"></td>
                         <td th:text="${product.name}"></td>
-                        <td th:text="${product.cost}"></td>
                         <td>
-                            <div class="btn-group btn-block" role="group" aria-label="Basic example">
-                                <a class="btn btn-info" role="button" th:href="@{/show/{id}(id=${product.id})}">Инфо</a>
-                                <a class="btn btn-danger" role="button" th:href="@{/delete/{id}(id=${product.id})}">Удалить</a>
-                            </div>
+                            <form th:action="@{/set/cost}" method="GET">
+                                <span th:text="${product.cost}"></span>
+                                <div class="btn-group-vertical">
+                                    <input type="hidden" th:name="id" th:value="${product.id}">
+                                    <button type="submit" th:name="value" th:value="1" class="btn btn-success btn-sm">+</button>
+                                    <button type="submit" th:name="value" th:value="-1" class="btn btn-warning btn-sm">-</button>
+                                </div>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/show}" method="GET">
+                                <div class="btn-group btn-block" role="group" aria-label="Manage group">
+                                    <input type="hidden" th:name="id" th:value="*{product.id}" >
+                                    <button class="btn btn-info" type="submit">Инфо</button>
+                                    <a class="btn btn-danger" role="button" th:href="@{/delete/{id}(id=${product.id})}">Удалить</a>
+                                </div>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
@@ -41,12 +53,14 @@
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                         <a class="btn btn-primary" role="button" th:href="@{/addproduct}">Добавить продукт</a>
                     </div>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <button type="submit" class="btn btn-light" th:href="@{/show(id='value1')}">@</button>
+                        <form th:action="@{/show}" method="GET">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="submit" class="btn btn-light" th:href="@{/show}">@</button>
+                                </div>
+                                <input type="text" th:name="id" class="form-control" placeholder="Поиск по ID продукта" aria-label="Поиск по ID продукта" aria-describedby="btnProductFind">
                             </div>
-                            <input type="text" class="form-control" placeholder="Поиск по ID продукта" aria-label="Поиск по ID продукта" aria-describedby="btnProductFind" name="id" id="id">
-                        </div>
+                        </form>
                 </div>
             </p>
     </div>

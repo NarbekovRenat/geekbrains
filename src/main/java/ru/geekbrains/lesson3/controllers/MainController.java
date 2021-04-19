@@ -66,7 +66,7 @@ public class MainController {
      * @return Redirect на главную страницу
      * **/
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
+    public String deleteUser(@PathVariable("id") Long id, Model model) {
         try{
             productsService.deleteProductById(id);
         }catch (IllegalArgumentException ex){
@@ -76,8 +76,15 @@ public class MainController {
         return "redirect:/index";
     }
 
-    @GetMapping("/set/cost/{id}")
-    public String setProductCost(@PathVariable("id") long id, long value, Model model) {
+    /**
+     * GET запрос для изменения цены товара по {@param id}
+     * @param id Id товара
+     * @param value +1 или -1 (для инкр./декр. цены товара)
+     * @param model ModelView
+     * @return Redirect на главную страницу
+     * **/
+    @GetMapping("/set/cost")
+    public String setProductCost(Long id, Long value, Model model) {
         try{
             productsService.setProductCostById(id, value);
         }catch (IllegalArgumentException ex){
@@ -87,8 +94,15 @@ public class MainController {
         return "redirect:/index";
     }
 
+    /**
+     * GET запрос для показа инфо о товар по {@param id}
+     * @param id Id товара
+     * @param model ModelView
+     * @return Redirect на главную страницу
+     * **/
     @GetMapping("/show")
-    public String showProductById(@RequestParam(required = true) long id, Model model) {
+    public String showProductById(Long id, Model model) {
+        System.out.println(id);
         Optional<Product> product = productsService.getProductById(id);
         if (product.isEmpty()){
             model.addAttribute("msgError", "Продукт с ID:" + id + " не найден!");

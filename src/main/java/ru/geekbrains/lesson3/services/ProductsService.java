@@ -43,13 +43,16 @@ public class ProductsService {
     /**
      * Изменить цену продукта по ID
      * @param id Id товара для изменения
-     * @param cost Новая цена товара
+     * @param cost Sign для инкремента/декремента
      * **/
-    public void setProductCostById(long id, long cost) {
+    public void setProductCostById(Long id, Long cost) {
         Product product = productsRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
-        product.setCost(cost);
+        if(cost > 0)
+            product.incrementCost();
+        else
+            product.decrementCost();
         productsRepository.save(product);
     }
 
