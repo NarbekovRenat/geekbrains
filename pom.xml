@@ -8,11 +8,11 @@
         <version>2.4.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>ru.geekbrains</groupId>
-    <artifactId>lesson7</artifactId>
+    <groupId>ru.geekbrains.aprilmarket</groupId>
+    <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>lesson7</name>
-    <description>Lesson 7 for geekbrains</description>
+    <name>April market</name>
+    <description>April product marketplace</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -20,10 +20,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

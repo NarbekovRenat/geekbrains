@@ -1,16 +1,16 @@
-package ru.geekbrains.lesson7.models;
+package ru.geekbrains.aprilmarket.models;
 
-import lombok.*;
-import org.hibernate.annotations.Cascade;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.util.List;
 
+
+@Entity
+@Table(name = "categories")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -19,7 +19,4 @@ public class Category {
 
     @Column(name = "title")
     private String title;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Product> products;
 }

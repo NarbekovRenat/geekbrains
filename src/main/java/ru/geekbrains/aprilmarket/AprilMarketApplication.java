@@ -1,13 +1,13 @@
-package ru.geekbrains.lesson7;
+package ru.geekbrains.aprilmarket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Lesson7Application {
+public class AprilMarketApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Lesson7Application.class, args);
+        SpringApplication.run(AprilMarketApplication.class, args);
     }
 
 }
