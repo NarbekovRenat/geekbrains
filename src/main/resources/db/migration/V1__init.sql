@@ -1,31 +1,54 @@
-create table categories (id bigserial primary key, title varchar(255));
-insert into categories (title) values
-('Мясо'),
-('Шоколад'),
-('Молочное'),
-('Выпечка');
+create table users (
+  id                    bigserial,
+  username              varchar(30) not null unique,
+  password              varchar(80) not null,
+  email                 varchar(50) unique,
+  primary key (id)
+);
 
-create table products (id bigserial primary key, title varchar(255), price int, category_id bigint references categories (id));
-insert into products (title, price, category_id) values
-('Хлеб', 25, 4),
-('Сахар', 80, 2),
-('Сникерс', 50, 2),
-('Шаньга', 30, 4),
-('Котлетка', 325, 1),
-('Пельмени', 350, 1),
-('Сыр', 300, 3),
-('Молоко', 60, 3),
-('Торт 1', 400, 4),
-('Торт 2', 550, 4),
-('Масло', 120, 3),
-('Баунти', 60, 2),
-('Киткат', 55, 2),
-('Ватрушка', 34, 4),
-('Батон', 40, 4),
-('Баранки', 55, 4),
-('Кефир', 50, 3),
-('Йогурт', 25, 3),
-('Баранина', 500, 1),
-('Чебупели', 112, 1),
-('Сыворотка', 70, 3),
-('Сосиски', 345, 1);
+create table roles (
+  id                    serial,
+  name                  varchar(50) not null,
+  primary key (id)
+);
+
+create table permissions (
+  id                    serial,
+  name                  varchar(50) not null,
+  role_id               int not null,
+  primary key (id),
+  foreign key (role_id) references roles (id)
+);
+
+CREATE TABLE users_roles (
+  user_id               bigint not null,
+  role_id               int not null,
+  primary key (user_id, role_id),
+  foreign key (user_id) references users (id),
+  foreign key (role_id) references roles (id)
+);
+
+insert into roles (name)
+values
+('ROLE_MANAGER'), ('ROLE_JUN_DEV'), ('ROLE_MID_DEV'), ('ROLE_SEN_DEV');
+
+insert into permissions (name, role_id)
+values
+('MANAGE_SCHEDULE', 1), ('MANAGE_BALANCE', 1), ('MANAGE_TASK', 1),
+('GIT_PULL', 2), ('GIT_COMMIT', 2),
+('GIT_PULL', 3), ('GIT_COMMIT', 3), ('GIT_PUSH', 3),
+('GIT_PULL', 4), ('GIT_COMMIT', 4), ('GIT_PUSH', 4), ('VIEW_TASKS', 4);
+
+insert into users (username, password, email)
+values
+('manager', '$2y$12$JXHbM0c2osL8ijReZgf3n.Vl7M.uiqEOLhif0xJTzpWj0sC11x7Tm', 'user@ya.ru'),
+('junDev', '$2y$12$JXHbM0c2osL8ijReZgf3n.Vl7M.uiqEOLhif0xJTzpWj0sC11x7Tm', 'dev1@ya.ru'),
+('midDev', '$2y$12$JXHbM0c2osL8ijReZgf3n.Vl7M.uiqEOLhif0xJTzpWj0sC11x7Tm', 'dev2@ya.ru'),
+('senDev', '$2y$12$JXHbM0c2osL8ijReZgf3n.Vl7M.uiqEOLhif0xJTzpWj0sC11x7Tm', 'dev3@ya.ru');
+
+insert into users_roles (user_id, role_id)
+values
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4);
